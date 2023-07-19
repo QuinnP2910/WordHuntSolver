@@ -1,11 +1,13 @@
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class Graph {
     ArrayList<Vertex> vertices = new ArrayList<>();
@@ -47,12 +49,11 @@ public class Graph {
     public void analyzePossibleWords(Vertex vertex) {
         System.out.println("Analyzing possible words...");
         for (Edge possibleEdge : vertex.connections) {
-            analyzePossibleWords(possibleEdge, new ArrayList<>(Arrays.asList(vertex)), new ArrayList<>(Arrays.asList(new Edge('s', vertex))));
+            analyzePossibleWords(possibleEdge, new ArrayList<>(List.of(vertex)), new ArrayList<>(List.of(new Edge('s', vertex))));
         }
     }
 
-    private void analyzePossibleWords(Edge edge, ArrayList<Vertex> visitedNodes, ArrayList<Edge> path)
-    {
+    private void analyzePossibleWords(Edge edge, ArrayList<Vertex> visitedNodes, ArrayList<Edge> path) {
         Vertex vertex = edge.endVertex;
         ArrayList<Vertex> visitedNodesCopy = new ArrayList<>(visitedNodes);
         ArrayList<Edge> pathCopy = new ArrayList<>(path);
@@ -97,16 +98,16 @@ public class Graph {
                     boolean foundCharacter = false;
                     for (Edge edge :
                             wordPath.path) {
-                        if(edge.endVertex.id == Main.rowAndColumnToID(i, j)) {
+                        if (edge.endVertex.id == Main.rowAndColumnToID(i, j)) {
                             int edgeIndex = wordPath.path.indexOf(edge);
                             System.out.print(edgeIndex != wordPath.path.size() - 1 ? wordPath.path.get(edgeIndex + 1).direction : "o");
                             foundCharacter = true;
-                            if(edgeIndex == 0) {
+                            if (edgeIndex == 0) {
                                 firstCharacter = true;
                             }
                         }
                     }
-                    if(!foundCharacter) {
+                    if (!foundCharacter) {
                         System.out.print("+");
                     }
                     if (!firstCharacter) {

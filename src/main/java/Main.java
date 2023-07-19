@@ -35,7 +35,7 @@ public class Main {
     }
 
     public static void addIfValid(int r, int c, char direction, Vertex letter, Graph graph) {
-        if(r <= 3 && r >= 0 && c <= 3 && c >= 0) {
+        if (r <= 3 && r >= 0 && c <= 3 && c >= 0) {
             letter.addConnection(new Edge(direction, graph.getVertex(rowAndColumnToID(r, c))), false);
         }
     }

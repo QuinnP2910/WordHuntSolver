@@ -4,6 +4,7 @@ public class Trie {
     public Trie(TrieNode root) {
         this.root = root;
     }
+
     public TrieNode insertString(String toInsert, TrieNode node) {
         if (toInsert.length() == 0) {
             TrieNode terminal = new TrieNode('#');
@@ -31,7 +32,7 @@ public class Trie {
     }
 
     public boolean startsWith(String prefix, TrieNode node) {
-        if(prefix.length() == 0) {
+        if (prefix.length() == 0) {
             return true;
         }
         int characterIndex = node.getChildIndex(prefix.charAt(0));
@@ -40,20 +41,5 @@ public class Trie {
         } else {
             return startsWith(prefix.substring(1), node.children.get(characterIndex));
         }
-    }
-
-    public String toString(TrieNode node) {
-        String toReturn = "";
-        toReturn = toReturn.concat(String.valueOf(node.character));
-        if (node.children.size() == 1) {
-            toReturn = toReturn.concat(toString(node.children.get(0)));
-        } else {
-            for (int i = 0; i < node.children.size(); i++) {
-                toReturn = toReturn.concat("[");
-                toReturn = toReturn.concat(toString(node.children.get(i)));
-                toReturn = toReturn.concat("]");
-            }
-        }
-        return toReturn;
     }
 }
