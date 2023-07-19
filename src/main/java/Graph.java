@@ -4,10 +4,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Graph {
     ArrayList<Vertex> vertices = new ArrayList<>();
@@ -65,7 +62,7 @@ public class Graph {
             return;
         }
 
-        if (currentWord.length() > 3 && dictionary.contains(currentWord) && !validWords.contains(currentWord)) {
+        if (currentWord.length() > 3 && dictionary.contains(currentWord) && !wordPathContains(currentWord)) {
             validWords.add(new WordPath(currentWord, pathCopy));
         }
         for (Edge possibleEdge : vertex.connections) {
@@ -120,6 +117,16 @@ public class Graph {
                 System.out.println();
             }
         }
+    }
+
+    public boolean wordPathContains(String word) {
+        for (WordPath wordPath :
+                validWords) {
+            if(Objects.equals(wordPath.word, word)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
